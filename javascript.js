@@ -1,20 +1,10 @@
-// var shell;
-// 
-// 	
-// }
-
-	// var randomShell = Math.floor(Math.random() * (shells.length));
-
-
-// function gotShell(shellData) {
-// 	println(shellData);
-// }
-// var tacoCounter = 1;
-var ingredientsContainer = document.getElementById("ingredients-info");
 
 var tacoContainer = document.getElementById("taco-info");
 var btn = document.getElementById("btn");
+//the taco #
+var tacoCount = 1;
 
+// When you click the button loads data from API and calls the function renderHTML
 btn.addEventListener("click", function(){
 	var shells = new XMLHttpRequest();
 	shells.open('GET', "https://tacos-ocecwkpxeq.now.sh/shells");
@@ -56,11 +46,14 @@ btn.addEventListener("click", function(){
 	};
 	seasonings.send();
 
+	tacoContainer.insertAdjacentHTML("beforeend", "-------- Taco " + tacoCount +"----------------------------------");
+	tacoCount++;
+
 });
 
-
-
+// Renders html for the assembled taco
 function renderHTML(data){
+	//some descriptors to randomly describe how amazing each of the ingredients are
 	var descriptors = [
 	"Gourmet ",
 	"Mouth-watering ",
@@ -73,12 +66,23 @@ function renderHTML(data){
 	"Tasty ",
 	"Delectable ",
 	"Exquisite ",
-	"Awesome "
+	"Awesome ",
+	"Fantastic ",
+	"Out-of-this-world ",
+	"5-star ",
+	"Superb ",
+	"Extraordinary ",
+	"Beyonce's favourite ",
+	"Obama's favourite ",
+	"Crazy amazing "
 	]
 	var htmlString = "";
+	//random number generator for descriptor words
 	var descriptorRanNum = Math.floor(Math.random() * (descriptors.length));
+	//random number generator to choose ingredient
 	var ranNum = Math.floor(Math.random() * (data.length));
+	//adds the random descriptor and random ingredient into a html string with paragraph tag
 	htmlString += "<p>" + descriptors[descriptorRanNum] + data[ranNum].name + "</p>";
+	//inserts the string as HTML
 	tacoContainer.insertAdjacentHTML("beforeend", htmlString);
 }
-
